@@ -43,7 +43,7 @@ For a quick production deployment on supported Linux servers (Debian, Ubuntu, Al
 
 ```bash
 # Clone repository
-git clone <your-repo>
+git clone https://github.com/Mac1-2/open-resume-builder.git
 cd open-resume
 
 # Install dependencies
