@@ -1,0 +1,95 @@
+// Prisma schema for Open Resume - SQLite for development
+// This is your Prisma schema file
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  resumes Resume[]
+  chats   AIChat[]
+}
+
+model Resume {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  template  String
+  data      String // SQLite doesn't support Json, store as string
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chat     AIChat[]
+  sections ResumeSection[]
+
+  @@index([userId])
+  @@index([template])
+}
+
+model ResumeSection {
+  id        String   @id @default(uuid())
+  resumeId  String
+  type      String // 'personal', 'summary', 'experience', 'education', 'skills', etc.
+  title     String?
+  content   String // SQLite doesn't support Json, store as string
+  order     Int      @default(0)
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  resume Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@index([resumeId])
+}
+
+model Template {
+  id           String   @id @default(uuid())
+  name         String   @unique
+  description  String?
+  thumbnail    String?
+  config       String // SQLite doesn't support Json, store as string
+  isActive     Boolean  @default(true)
+  category     String
+  tags         String // SQLite doesn't support Json, store as string
+  popularity   Int      @default(0)
+  previewImage String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([isActive, category])
+}
+
+model AIChat {
+  id        String   @id @default(uuid())
+  resumeId  String?
+  userId    String?
+  messages  String // SQLite doesn't support Json, store as string
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  resume Resume? @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([resumeId])
+}
+
+model Settings {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String // SQLite doesn't support Json, store as string
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
