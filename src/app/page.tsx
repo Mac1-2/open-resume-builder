@@ -2,24 +2,44 @@
 
 import React, {useState, useEffect} from 'react';
 import {useRouter} from 'next/navigation';
-import {ArrowRight, FileText, Sparkles, LayoutGrid, BarChart3} from 'lucide-react';
+import {ArrowRight, FileText, Sparkles, LayoutGrid, BarChart3, Upload} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {Card} from '@/components/ui/card';
 import {cn} from '@/lib/utils';
+import ResumeImport from '@/components/resume/ResumeImport';
+import {encodeResumeData} from '@/lib/resume-parser';
+import type {BaseResumeData} from '@/components/resume/templates/types';
 
 export default function HomePage() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const [showImport, setShowImport] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleImport = (parsed: { data: Partial<BaseResumeData> }) => {
+    const encoded = encodeResumeData(parsed.data);
+    if (encoded) {
+      router.push(`/editor?import=true&data=${encoded}`);
+    } else {
+      router.push('/editor');
+    }
+    setShowImport(false);
+  };
 
   if (!mounted) {
     return null;
   }
 
   const features = [
+    {
+      icon: <Upload className="h-8 w-8 text-primary" />,
+      title: 'Upload Existing CV',
+      description:
+        'Import your current resume and convert it instantly to a professional template.',
+    },
     {
       icon: <LayoutGrid className="h-8 w-8 text-primary" />,
       title: 'Modern Templates',
@@ -84,14 +104,14 @@ export default function HomePage() {
               Start Building
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            {/* Temporarily disabled - editor under construction */}
             <Button
               size="lg"
               variant="outline"
               className="text-base"
-              onClick={() => router.push('/editor')}
+              onClick={() => setShowImport(true)}
             >
-              View Templates
+              <Upload className="mr-2 h-4 w-4" />
+              Upload CV
             </Button>
           </div>
         </div>
@@ -142,6 +162,12 @@ export default function HomePage() {
           </div>
         </div>
       </main>
+
+      <ResumeImport
+        isOpen={showImport}
+        onClose={() => setShowImport(false)}
+        onImport={handleImport}
+      />
     </div>
   );
 }

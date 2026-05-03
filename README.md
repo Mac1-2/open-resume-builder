@@ -27,7 +27,7 @@ A modern resume builder built with Next.js 14, TypeScript, Tailwind CSS, Prisma,
 - Node.js 18+ and npm/yarn/pnpm
 - MariaDB 10.5+ or MySQL 8.0+
 
-### Production Deployment (Universal Script)
+### Production Deployment (Universal Script) Not tested 
 
 For a quick production deployment on supported Linux servers (Debian, Ubuntu, AlmaLinux, Rocky), use the provided deployment script:
 
@@ -61,6 +61,11 @@ cp .env.example .env
    ```bash
    sudo apt-get update
    sudo apt-get install mariadb-server
+   ```
+   **Install MariaDB** (Ubuntu/Debian):
+   ```bash
+   sudo dnf update -y
+   sudo dnf install mariadb-server -y
    ```
 
    **macOS** (with Homebrew):
@@ -199,4 +204,4 @@ The seed uses `upsert` and is idempotent — re-running is safe.
 
 ## License
 
-ISC
+MIT

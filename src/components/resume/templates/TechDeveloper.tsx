@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import type { BaseResumeData } from "@/components/resume/templates/types";
 
 interface TechDeveloperProps {
-  data: any;
+  data: BaseResumeData;
   theme?: {
     primaryColor?: string;
     secondaryColor?: string;
@@ -285,7 +286,7 @@ export default function TechDeveloper({
               </div>
             ) : (
               <div className="text-xs italic" style={{ color: "#64748b" }}>
-                // No summary available
+                {'//'} No summary available
               </div>
             )}
           </section>

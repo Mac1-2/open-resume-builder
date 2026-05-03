@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import type { BaseResumeData } from "@/components/resume/templates/types";
 
 interface ModernCleanProps {
-  data: any;
+  data: BaseResumeData;
   theme?: {
     accentStart?: string;
     accentEnd?: string;

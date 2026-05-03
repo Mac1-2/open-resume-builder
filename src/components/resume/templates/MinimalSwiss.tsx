@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import type { BaseResumeData } from "@/components/resume/templates/types";
 
 interface MinimalSwissProps {
-  data: any;
+  data: BaseResumeData;
   theme?: {
     primaryColor?: string;
     borderColor?: string;
@@ -93,10 +94,10 @@ export default function MinimalSwiss({
               </h2>
 
               <div className="space-y-6">
-                {data.experience.map((exp: any, idx: number) => (
+                {data.experience?.map((exp: any, idx: number) => (
                   <div key={idx} className="relative">
                     {/* Vertical timeline connector */}
-                    {idx < data.experience.length - 1 && (
+                    {idx < (data.experience?.length ?? 0) - 1 && (
                       <div
                         className="absolute left-2 top-8 bottom-0 w-px"
                         style={{ backgroundColor: theme.borderColor }}
@@ -243,7 +244,7 @@ export default function MinimalSwiss({
                 Skills
               </h2>
               <div className="space-y-4">
-                {data.skills.map((skillCategory: any, idx: number) => (
+                {data.skills?.map((skillCategory: any, idx: number) => (
                   <div key={idx}>
                     <h3
                       className="text-xs font-medium mb-2 uppercase"

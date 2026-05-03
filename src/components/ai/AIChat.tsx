@@ -172,12 +172,7 @@ export default function AIChat({
   // Auto-scroll to bottom when messages change
   useEffect(() => {
     if (scrollAreaRef.current) {
-      const viewport = scrollAreaRef.current.querySelector(
-        "[data-radix-scroll-area-viewport]"
-      ) as HTMLDivElement;
-      if (viewport) {
-        viewport.scrollTop = viewport.scrollHeight;
-      }
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
   }, [messages, isLoading]);
 
@@ -502,7 +497,10 @@ export default function AIChat({
         </div>
 
         {/* Messages */}
-        <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
+        <div 
+          className="flex-1 overflow-y-auto p-4" 
+          ref={scrollAreaRef}
+        >
           <div className="space-y-4">
             {messages.map((message) => (
               <div
@@ -625,7 +623,7 @@ export default function AIChat({
               </div>
             )}
           </div>
-        </ScrollArea>
+        </div>
 
         {/* Input Area */}
         <div className="border-t bg-muted/50 p-4">

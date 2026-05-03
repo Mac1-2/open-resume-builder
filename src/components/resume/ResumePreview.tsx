@@ -20,54 +20,36 @@ import ModernClean from "./templates/ModernClean";
 import CreativeBold from "./templates/CreativeBold";
 import MinimalSwiss from "./templates/MinimalSwiss";
 import TechDeveloper from "./templates/TechDeveloper";
+import TechiePro from "./templates/TechiePro";
+import Startup from "./templates/Startup";
+import RealEstate from "./templates/RealEstate";
+import Hospitality from "./templates/Hospitality";
+import RetailManager from "./templates/RetailManager";
+import NonProfit from "./templates/NonProfit";
+import GovernmentPro from "./templates/GovernmentPro";
+import Educator from "./templates/Educator";
+import ConsultantPro from "./templates/ConsultantPro";
+import ArchitectPro from "./templates/ArchitectPro";
+import MarketingBold from "./templates/MarketingBold";
+import ProductManager from "./templates/ProductManager";
+import DataScientist from "./templates/DataScientist";
+import EngineeringLead from "./templates/EngineeringLead";
+import SalesExecutive from "./templates/SalesExecutive";
+import LegalClassic from "./templates/LegalClassic";
+import FinanceProfessional from "./templates/FinanceProfessional";
+import MedicalProfessional from "./templates/MedicalProfessional";
+import CreativeBoldPro from "./templates/CreativeBoldPro";
+import ExecutiveSuite from "./templates/ExecutiveSuite";
+import AcademicElite from "./templates/AcademicElite";
+import ModernMinimal from "./templates/ModernMinimal";
+import CorporateClassic from "./templates/CorporateClassic";
+import ProfessionalTemplate from "./templates/ProfessionalTemplate";
 
-interface ResumeData {
+import type { BaseResumeData } from "@/components/resume/templates/types";
+
+// Reuse the BaseResumeData type from our shared types
+interface ResumeData extends BaseResumeData {
   template?: string;
-  personalInfo: {
-    fullName: string;
-    title: string;
-    email?: string;
-    phone?: string;
-    location?: string;
-    website?: string;
-    summary?: string;
-    photo?: string;
-  };
-  experience: Array<{
-    position: string;
-    company: string;
-    startDate: string;
-    endDate?: string;
-    current?: boolean;
-    description?: string;
-    achievements?: string[];
-  }>;
-  education: Array<{
-    degree: string;
-    institution: string;
-    field?: string;
-    startDate: string;
-    endDate: string;
-  }>;
-  skills: Array<{
-    category: string;
-    items: string[];
-  }>;
-  projects: Array<{
-    name: string;
-    description: string;
-    url?: string;
-    technologies?: string[];
-  }>;
-  certifications: Array<{
-    name: string;
-    issuer: string;
-    date: string;
-  }>;
-  languages: Array<{
-    language: string;
-    proficiency: string;
-  }>;
 }
 
 interface ResumePreviewProps {
@@ -77,10 +59,13 @@ interface ResumePreviewProps {
   showControls?: boolean;
 }
 
+import type { TemplateProps } from "@/components/resume/templates/types";
+
 const TemplateComponents: Record<
   string,
-  React.ComponentType<{ data: ResumeData; className?: string }>
+  React.ComponentType<TemplateProps>
 > = {
+  // Original 5 templates
   professional: ProfessionalExecutive,
   modern: ModernClean,
   creative: CreativeBold,
@@ -91,6 +76,56 @@ const TemplateComponents: Record<
   "Creative Bold": CreativeBold,
   "Minimal Swiss": MinimalSwiss,
   "Tech Developer": TechDeveloper,
+  
+  // Additional templates
+  techiePro: TechiePro,
+  "Techie Pro": TechiePro,
+  startup: Startup,
+  "Startup": Startup,
+  realEstate: RealEstate,
+  "Real Estate": RealEstate,
+  hospitality: Hospitality,
+  "Hospitality": Hospitality,
+  retailManager: RetailManager,
+  "Retail Manager": RetailManager,
+  nonProfit: NonProfit,
+  "Non-Profit": NonProfit,
+  governmentPro: GovernmentPro,
+  "Government Pro": GovernmentPro,
+  educator: Educator,
+  "Educator": Educator,
+  consultantPro: ConsultantPro,
+  "Consultant Pro": ConsultantPro,
+  architectPro: ArchitectPro,
+  "Architect Pro": ArchitectPro,
+  marketingBold: MarketingBold,
+  "Marketing Bold": MarketingBold,
+  productManager: ProductManager,
+  "Product Manager": ProductManager,
+  dataScientist: DataScientist,
+  "Data Scientist": DataScientist,
+  engineeringLead: EngineeringLead,
+  "Engineering Lead": EngineeringLead,
+  salesExecutive: SalesExecutive,
+  "Sales Executive": SalesExecutive,
+  legalClassic: LegalClassic,
+  "Legal Classic": LegalClassic,
+  financeProfessional: FinanceProfessional,
+  "Finance Professional": FinanceProfessional,
+  medicalProfessional: MedicalProfessional,
+  "Medical Professional": MedicalProfessional,
+  creativeBoldPro: CreativeBoldPro,
+  "Creative Bold Pro": CreativeBoldPro,
+  executiveSuite: ExecutiveSuite,
+  "Executive Suite": ExecutiveSuite,
+  academicElite: AcademicElite,
+  "Academic Elite": AcademicElite,
+  modernMinimal: ModernMinimal,
+  "Modern Minimal": ModernMinimal,
+  corporateClassic: CorporateClassic,
+  "Corporate Classic": CorporateClassic,
+  professionalTemplate: ProfessionalTemplate,
+  "Professional Template": ProfessionalTemplate,
 };
 
 export default function ResumePreview({

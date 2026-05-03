@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import type { BaseResumeData } from "@/components/resume/templates/types";
 
 interface ProfessionalExecutiveProps {
-  data: any;
+  data: BaseResumeData;
   theme?: {
     primaryColor?: string;
     secondaryColor?: string;
@@ -86,44 +87,48 @@ export default function ProfessionalExecutive({
             </div>
           </section>
 
-          {/* Skills */}
-          {data.skills && data.skills.length > 0 && (
-            <section className="mb-6">
-              <h2
-                className="text-xs font-bold uppercase tracking-wider mb-3 pb-2 border-b"
-                style={{
-                  color: theme.primaryColor,
-                  borderColor: theme.accentColor,
-                  letterSpacing: "0.5px",
-                }}
-              >
-                Skills
-              </h2>
-              <div className="space-y-3">
-                {data.skills.map((skillCategory: any, idx: number) => (
-                  <div key={idx}>
-                    <h3
-                      className="text-[10px] font-semibold mb-1"
-                      style={{ color: theme.primaryColor }}
-                    >
-                      {skillCategory.category}
-                    </h3>
-                    <div className="space-y-1">
-                      {skillCategory.items.map((skill: string, i: number) => (
-                        <div key={i} className="flex items-center">
-                          <div
-                            className="w-1 h-1 rounded-full mr-2 flex-shrink-0"
-                            style={{ backgroundColor: theme.accentColor }}
-                          />
-                          <span className="text-[9px] text-gray-600">{skill}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
+           {/* Skills */}
+           {data.skills && data.skills.length > 0 && (
+             <section className="mb-6">
+               <h2
+                 className="text-xs font-bold uppercase tracking-wider mb-3 pb-2 border-b"
+                 style={{
+                   color: theme.primaryColor,
+                   borderColor: theme.accentColor,
+                   letterSpacing: "0.5px",
+                 }}
+               >
+                 Skills
+               </h2>
+               <div className="space-y-3">
+                 {data.skills && data.skills.length > 0 && (
+                   <div>
+                     {data.skills.map((skillCategory, idx) => (
+                       <div key={idx}>
+                         <h3
+                           className="text-[10px] font-semibold mb-1"
+                           style={{ color: theme.primaryColor }}
+                         >
+                           {skillCategory.category}
+                         </h3>
+                         <div className="space-y-1">
+                           {skillCategory.items.map((skill: string, i: number) => (
+                             <div key={i} className="flex items-center">
+                               <div
+                                 className="w-1 h-1 rounded-full mr-2 flex-shrink-0"
+                                 style={{ backgroundColor: theme.accentColor }}
+                               />
+                               <span className="text-[9px] text-gray-600">{skill}</span>
+                             </div>
+                           ))}
+                         </div>
+                       </div>
+                     ))}
+                   </div>
+                 )}
+               </div>
+             </section>
+           )}
 
           {/* Languages */}
           {data.languages && data.languages.length > 0 && (

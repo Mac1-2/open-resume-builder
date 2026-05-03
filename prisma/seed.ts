@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../src/lib/db';
 import { v4 as uuidv4 } from 'uuid';
-
-const prisma = new PrismaClient();
 
 interface TemplateConfig {
   layout: string;
@@ -284,7 +282,4 @@ main()
   .catch((e) => {
     console.error('Error seeding database:', e);
     process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
   });

@@ -7,13 +7,35 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Check, ChevronRight, LayoutGrid, List, Search, Filter } from "lucide-react";
+import type { TemplateMetadata, TemplateCategory } from "@/components/resume/templates/types";
+
+// Image placeholder component for template thumbnails
+const TemplateImage = ({ template }: { template: any }) => {
+  const colors: Record<string, string> = {
+    professional: "from-blue-400 to-blue-600",
+    modern: "from-green-400 to-green-600",
+    creative: "from-purple-400 to-pink-600",
+    minimal: "from-gray-400 to-gray-600",
+    tech: "from-cyan-400 to-indigo-600",
+  };
+  const baseColor = colors[template?.category?.toLowerCase() as keyof typeof colors] || "from-gray-400 to-gray-600";
+  return (
+    <div className={`h-48 w-full rounded-lg mb-3 overflow-hidden bg-gradient-to-br ${baseColor}`}>
+      <div className="h-full flex items-center justify-center">
+        <div className="text-white/30 text-4xl font-bold">
+          {[template.name.charAt(0), template.name.split(" ")[1]?.charAt(0)].filter(Boolean).join("")}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 interface Template {
   id: string;
   name: string;
   description: string;
   thumbnail?: string;
-  category: string;
+  category: TemplateCategory | string;
   bestFor: string;
   usageCount: number;
 }
@@ -27,6 +49,7 @@ interface TemplateSelectorProps {
 }
 
 const defaultTemplates: Template[] = [
+  // Original 5 templates
   {
     id: "professional",
     name: "Professional Executive",
@@ -67,9 +90,204 @@ const defaultTemplates: Template[] = [
     bestFor: "Software Developers, Engineers, IT Professionals",
     usageCount: 1100,
   },
+  
+  // Additional templates
+  {
+    id: "techiePro",
+    name: "Techie Pro",
+    description: "Terminal-style design with monospace fonts and code-inspired layout",
+    category: "Tech",
+    bestFor: "Software Developers, DevOps, System Administrators",
+    usageCount: 890,
+  },
+  {
+    id: "startup",
+    name: "Startup",
+    description: "Modern, energetic design with vibrant colors and dynamic layout",
+    category: "Modern",
+    bestFor: "Startup Employees, Entrepreneurs, Growth Hackers",
+    usageCount: 720,
+  },
+  {
+    id: "realEstate",
+    name: "Real Estate",
+    description: "Professional design with property-focused layout and clean typography",
+    category: "Professional",
+    bestFor: "Real Estate Agents, Brokers, Property Managers",
+    usageCount: 580,
+  },
+  {
+    id: "hospitality",
+    name: "Hospitality",
+    description: "Warm, inviting design with elegant touches for service industry professionals",
+    category: "Professional",
+    bestFor: "Hotel Managers, Event Planners, Restaurant Managers",
+    usageCount: 450,
+  },
+  {
+    id: "retailManager",
+    name: "Retail Manager",
+    description: "Clean, organized layout perfect for retail and store management roles",
+    category: "Professional",
+    bestFor: "Retail Managers, Store Directors, Merchandisers",
+    usageCount: 380,
+  },
+  {
+    id: "nonProfit",
+    name: "Non-Profit",
+    description: "Compassionate design with clear messaging for mission-driven organizations",
+    category: "Professional",
+    bestFor: "Non-Profit Leaders, Grant Writers, Program Directors",
+    usageCount: 420,
+  },
+  {
+    id: "governmentPro",
+    name: "Government Pro",
+    description: "Formal, structured design meeting government and public sector standards",
+    category: "Professional",
+    bestFor: "Government Employees, Policy Analysts, Public Administrators",
+    usageCount: 510,
+  },
+  {
+    id: "educator",
+    name: "Educator",
+    description: "Academic-friendly design with clear section organization for education professionals",
+    category: "Professional",
+    bestFor: "Teachers, Professors, Academic Administrators",
+    usageCount: 680,
+  },
+  {
+    id: "consultantPro",
+    name: "Consultant Pro",
+    description: "Sophisticated design with results-focused layout for consultants",
+    category: "Professional",
+    bestFor: "Management Consultants, Business Analysts, Strategy Advisors",
+    usageCount: 590,
+  },
+  {
+    id: "architectPro",
+    name: "Architect Pro",
+    description: "Design-forward layout with portfolio-style presentation for architects",
+    category: "Creative",
+    bestFor: "Architects, Interior Designers, Urban Planners",
+    usageCount: 340,
+  },
+  {
+    id: "marketingBold",
+    name: "Marketing Bold",
+    description: "Bold, attention-grabbing design with vibrant colors for marketing roles",
+    category: "Creative",
+    bestFor: "Marketing Managers, Brand Strategists, Digital Marketers",
+    usageCount: 780,
+  },
+  {
+    id: "productManager",
+    name: "Product Manager",
+    description: "Strategic layout with metrics-focused design for product roles",
+    category: "Professional",
+    bestFor: "Product Managers, Product Owners, Program Managers",
+    usageCount: 850,
+  },
+  {
+    id: "dataScientist",
+    name: "Data Scientist",
+    description: "Analytical design with clean data visualization-inspired layout",
+    category: "Tech",
+    bestFor: "Data Scientists, Analysts, Machine Learning Engineers",
+    usageCount: 920,
+  },
+  {
+    id: "engineeringLead",
+    name: "Engineering Lead",
+    description: "Leadership-focused design with technical credentials showcase",
+    category: "Tech",
+    bestFor: "Engineering Managers, CTOs, Technical Leads",
+    usageCount: 760,
+  },
+  {
+    id: "salesExecutive",
+    name: "Sales Executive",
+    description: "Results-driven design with achievement highlights for sales professionals",
+    category: "Professional",
+    bestFor: "Sales Directors, Account Executives, Business Development",
+    usageCount: 640,
+  },
+  {
+    id: "legalClassic",
+    name: "Legal Classic",
+    description: "Traditional, authoritative design for legal professionals",
+    category: "Professional",
+    bestFor: "Lawyers, Attorneys, Legal Consultants",
+    usageCount: 520,
+  },
+  {
+    id: "financeProfessional",
+    name: "Finance Professional",
+    description: "Precise, structured design with numerical focus for finance roles",
+    category: "Professional",
+    bestFor: "Financial Analysts, Investment Bankers, CFOs",
+    usageCount: 710,
+  },
+  {
+    id: "medicalProfessional",
+    name: "Medical Professional",
+    description: "Clean, clinical design with credentials-focused layout",
+    category: "Professional",
+    bestFor: "Doctors, Nurses, Healthcare Administrators",
+    usageCount: 690,
+  },
+  {
+    id: "creativeBoldPro",
+    name: "Creative Bold Pro",
+    description: "Advanced creative design with portfolio integration and bold typography",
+    category: "Creative",
+    bestFor: "Creative Directors, Art Directors, Senior Designers",
+    usageCount: 480,
+  },
+  {
+    id: "executiveSuite",
+    name: "Executive Suite",
+    description: "Premium design with executive presence for C-level positions",
+    category: "Executive",
+    bestFor: "CEOs, VPs, Senior Executives",
+    usageCount: 880,
+  },
+  {
+    id: "academicElite",
+    name: "Academic Elite",
+    description: "Scholarly design with publication-focused layout for academics",
+    category: "Professional",
+    bestFor: "Professors, Researchers, PhD Candidates",
+    usageCount: 560,
+  },
+  {
+    id: "modernMinimal",
+    name: "Modern Minimal",
+    description: "Ultra-modern minimalist design with generous whitespace",
+    category: "Minimal",
+    bestFor: "Designers, Architects, Minimalists",
+    usageCount: 620,
+  },
+  {
+    id: "corporateClassic",
+    name: "Corporate Classic",
+    description: "Timeless corporate design with traditional business aesthetics",
+    category: "Professional",
+    bestFor: "Corporate Employees, Bankers, Consultants",
+    usageCount: 730,
+  },
+  {
+    id: "professionalTemplate",
+    name: "Professional Template",
+    description: "Versatile professional design suitable for most career fields",
+    category: "Professional",
+    bestFor: "General Professionals, Career Changers",
+    usageCount: 950,
+  },
 ];
 
 const templateNameToId: Record<string, string> = {
+  // Original 5 templates
   "Professional Executive": "professional",
   "Modern Clean": "modern",
   "Creative Bold": "creative",
@@ -80,6 +298,56 @@ const templateNameToId: Record<string, string> = {
   "creative": "creative",
   "minimal": "minimal",
   "tech": "tech",
+  
+  // Additional templates
+  "Techie Pro": "techiePro",
+  "techiePro": "techiePro",
+  "Startup": "startup",
+  "startup": "startup",
+  "Real Estate": "realEstate",
+  "realEstate": "realEstate",
+  "Hospitality": "hospitality",
+  "hospitality": "hospitality",
+  "Retail Manager": "retailManager",
+  "retailManager": "retailManager",
+  "Non-Profit": "nonProfit",
+  "nonProfit": "nonProfit",
+  "Government Pro": "governmentPro",
+  "governmentPro": "governmentPro",
+  "Educator": "educator",
+  "educator": "educator",
+  "Consultant Pro": "consultantPro",
+  "consultantPro": "consultantPro",
+  "Architect Pro": "architectPro",
+  "architectPro": "architectPro",
+  "Marketing Bold": "marketingBold",
+  "marketingBold": "marketingBold",
+  "Product Manager": "productManager",
+  "productManager": "productManager",
+  "Data Scientist": "dataScientist",
+  "dataScientist": "dataScientist",
+  "Engineering Lead": "engineeringLead",
+  "engineeringLead": "engineeringLead",
+  "Sales Executive": "salesExecutive",
+  "salesExecutive": "salesExecutive",
+  "Legal Classic": "legalClassic",
+  "legalClassic": "legalClassic",
+  "Finance Professional": "financeProfessional",
+  "financeProfessional": "financeProfessional",
+  "Medical Professional": "medicalProfessional",
+  "medicalProfessional": "medicalProfessional",
+  "Creative Bold Pro": "creativeBoldPro",
+  "creativeBoldPro": "creativeBoldPro",
+  "Executive Suite": "executiveSuite",
+  "executiveSuite": "executiveSuite",
+  "Academic Elite": "academicElite",
+  "academicElite": "academicElite",
+  "Modern Minimal": "modernMinimal",
+  "modernMinimal": "modernMinimal",
+  "Corporate Classic": "corporateClassic",
+  "corporateClassic": "corporateClassic",
+  "Professional Template": "professionalTemplate",
+  "professionalTemplate": "professionalTemplate",
 };
 
 const getTemplateId = (template: string): string => {
@@ -248,13 +516,7 @@ export default function TemplateSelector({
             {viewMode === "grid" ? (
               <div className="p-6">
                 {/* Thumbnail placeholder with category color */}
-                <div className="h-32 w-full rounded-lg mb-4 flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10">
-                  <div className="text-primary/50 text-2xl">
-                    {[template.name.charAt(0), template.name.split(" ")[1]?.charAt(0)]
-                      .filter(Boolean)
-                      .join("")}
-                  </div>
-                </div>
+                <TemplateImage template={template} />
                 <h3 className="font-semibold text-lg mb-2">{template.name}</h3>
                 <div className="flex items-center gap-2 mb-2">
                   <span className={cn(
@@ -284,13 +546,7 @@ export default function TemplateSelector({
               <div className="flex-1">
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-12 flex-shrink-0">
-                    <div className="h-full w-full rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-                      <div className="text-primary/50 text-xl">
-                        {[template.name.charAt(0), template.name.split(" ")[1]?.charAt(0)]
-                          .filter(Boolean)
-                          .join("")}
-                      </div>
-                    </div>
+                    <TemplateImage template={template} />
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold">{template.name}</h3>
