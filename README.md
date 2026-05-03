@@ -13,7 +13,7 @@ A modern resume builder built with Next.js 14, TypeScript, Tailwind CSS, Prisma,
 
 ## Tech Stack
 
-- **Frontend**: Next.js 14 (App Router), React 18, TypeScript, Tailwind CSS
+- **Frontend**: Next.js 15 (App Router), React 18, TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes, Prisma ORM
 - **Database**: MariaDB / MySQL
 - **AI**: OpenAI GPT integration
